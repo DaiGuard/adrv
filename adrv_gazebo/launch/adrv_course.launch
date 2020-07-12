@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- parameters -->
+  <!-- <arg name="" default="" /> -->
+
+  <!-- gazebo run start & spawn course world -->
+  <include file="$(find adrv_gazebo)/launch/course.launch" />
+
+  <!-- spawn robot description -->
+  <include file="$(find adrv_gazebo)/launch/spawn_ardv.launch">
+  </include>
+
+</launch>
