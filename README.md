@@ -12,4 +12,4 @@ adrv/
 └
 ```
 
-- [adrv_gazebo](httsp://github.com/DaiGuard/adrv/adrv_gazebo/README.md)
+- [adrv_gazebo](httsp://github.com/DaiGuard/adrv/adrv_gazebo)
