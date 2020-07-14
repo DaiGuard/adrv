@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<launch>
+  <!-- robot spawn parameters -->
+  <arg name="robot_namespace" default="/" />
+
+  <!-- robot urdf load -->
+  <param name="robot_description" command="$(find xacro)/xacro
+    '$(find adrv_description)/urdf/adrv.urdf.xacro'
+    --inorder
+    robot_namespace:=$(arg robot_namespace)" />
+
+</launch>

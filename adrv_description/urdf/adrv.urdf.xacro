@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+
+<robot name="adrv" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ### properties ### -->
+  <xacro:property name="M_PI" value="3.14159" />
+  
+  <!-- ### arguments ### -->
+  <xacro:arg name="robot_namespace" default="/" />
+  
+  <!-- ###  links  ### -->
+
+  <!-- base_link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://adrv_description/meshes/base_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://adrv_description/meshes/base_link.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="1.0" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0"
+                                   izz="1.0" />
+    </inertial>
+  </link>
+
+  <!-- wheel_link -->
+  <xacro:include filename="$(find adrv_description)/urdf/wheel.urdf.xacro" />
+
+  <xacro:wheel name="wheel_FR" pose_xyz="0 0 0" pose_rpy="0 0 0" />
+
+  <!-- Gazebo plugins -->
+  <!-- <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo> -->
+
+</robot>
