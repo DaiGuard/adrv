@@ -13,13 +13,13 @@
   <!-- base_link -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
       <geometry>
         <mesh filename="package://adrv_description/meshes/base_link.dae" />
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
       <geometry>
         <mesh filename="package://adrv_description/meshes/base_link.dae" />
       </geometry>
@@ -36,15 +36,18 @@
   <!-- wheel_link -->
   <xacro:include filename="$(find adrv_description)/urdf/wheel.urdf.xacro" />
 
-  <xacro:wheel name="wheel_FR" pose_xyz="0 0 0" pose_rpy="0 0 0" />
+  <xacro:wheel name="wheel_FR" pose_xyz="0.09 0.075 0.015" pose_rpy="0 0 ${M_PI/2}" />
+  <xacro:wheel name="wheel_FL" pose_xyz="0.09 -0.075 0.015" pose_rpy="0 0 -${M_PI/2}" />
+  <xacro:wheel name="wheel_RR" pose_xyz="-0.09 0.075 0.015" pose_rpy="0 0 ${M_PI/2}" />
+  <xacro:wheel name="wheel_RL" pose_xyz="-0.09 -0.075 0.015" pose_rpy="0 0 -${M_PI/2}" />
 
   <!-- Gazebo plugins -->
-  <!-- <gazebo>
+  <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <legacyModeNS>true</legacyModeNS>
     </plugin>
-  </gazebo> -->
+  </gazebo>
 
 </robot>
