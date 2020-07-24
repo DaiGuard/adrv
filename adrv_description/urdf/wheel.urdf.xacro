@@ -1,21 +1,40 @@
 <?xml version="1.0" ?>
 <robot name="wheel" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="wheel" params="name pose_xyz pose_rpy">
-
+  <xacro:macro name="wheel" params="name right_left">
+  
     <link name="${name}_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
-        </geometry>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
-        </geometry>
-      </collision>
+
+      <xacro:if value="${right_left =='right'}">
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 -${M_PI/2}" />
+          <geometry>
+            <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 -${M_PI/2}" />
+          <geometry>
+            <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
+          </geometry>
+        </collision>
+      </xacro:if>
+
+      <xacro:if value="${right_left =='left'}">
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+          <geometry>
+            <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+          <geometry>
+            <mesh filename="package://adrv_description/meshes/wheel_link.dae" />          
+          </geometry>
+        </collision>
+      </xacro:if>
+
       <inertial>
         <origin xyz="0 0 0" />
         <mass value="1.0" />
@@ -32,23 +51,6 @@
       <kd  value="1.0" />
       <fdir1 value="1 0 0" />
     </gazebo>
-
-    <joint name="${name}_joint" type="continuous">
-      <parent link="base_link" />
-      <child link="${name}_link" />
-      <origin xyz="${pose_xyz}" rpy="${pose_rpy}" />
-      <axis xyz="1 0 0" rpy="0 0 0" />
-    </joint>      
-
-    <transmission name="${name}_trans" type="SimpleTransmission">
-      <type>transmission_interface/SimpleTransmission</type>
-      <actuator name="${name}_motor">
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-      <joint name="${name}_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-    </transmission>
 
   </xacro:macro>
 

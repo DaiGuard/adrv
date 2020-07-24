@@ -5,10 +5,10 @@
   <!--  -->
   <arg name="robot_name" default="adrv" />
   <arg name="robot_namespace" default="/" />
-  <arg name="x" default="4.0" />
-  <arg name="y" default="-1.0" />
+  <arg name="x" default="2.85" />
+  <arg name="y" default="-0.3" />
   <arg name="z" default="0.03" />
-  <arg name="yaw" default="3.14159" />
+  <arg name="yaw" default="-1.57079" />
 
   <!--  -->
   <include file="$(find adrv_description)/launch/adrv_description.launch">
@@ -16,13 +16,7 @@
   </include>
 
   <!--  -->
-  <include file="$(find adrv_description)/launch/adrv_description.launch">
-    <arg name="robot_namespace" value="$(arg robot_namespace)" />
-  </include>
-
-  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher" respawn="false" output="screen">
-    <param name="publish_frequency" type="double" value="100.0" />
-  </node>
+  <rosparam file="$(find adrv_gazebo)/config/controller.yaml" command="load" />  
 
   <node name="spawn_model" pkg="gazebo_ros" type="spawn_model"
     args="-x $(arg x)
@@ -35,5 +29,11 @@
           -model $(arg robot_name)"
     respawn="false" 
     output="screen" />
+
+  <node name="controller_spawner" pkg="controller_manager"
+      type="spawner" respawn="false"
+      output="screen"
+      args="steer_drive_controller
+            joint_state_controller" />
 
 </launch>

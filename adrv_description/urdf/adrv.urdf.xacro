@@ -2,7 +2,7 @@
 
 <robot name="adrv" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- ### properties ### -->
+  <!-- ### properties ### -->  
   <xacro:property name="M_PI" value="3.14159" />
   
   <!-- ### arguments ### -->
@@ -13,13 +13,13 @@
   <!-- base_link -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+      <origin xyz="0 0 0" rpy="0 0 ${-M_PI/2}" />
       <geometry>
         <mesh filename="package://adrv_description/meshes/base_link.dae" />
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+      <origin xyz="0 0 0" rpy="0 0 ${-M_PI/2}" />
       <geometry>
         <mesh filename="package://adrv_description/meshes/base_link.dae" />
       </geometry>
@@ -34,19 +34,21 @@
   </link>
 
   <!-- wheel_link -->
-  <xacro:include filename="$(find adrv_description)/urdf/wheel.urdf.xacro" />
+  <xacro:include filename="$(find adrv_description)/urdf/steering.urdf.xacro" />
 
-  <xacro:wheel name="wheel_FR" pose_xyz="0.09 0.075 0.015" pose_rpy="0 0 ${M_PI/2}" />
-  <xacro:wheel name="wheel_FL" pose_xyz="0.09 -0.075 0.015" pose_rpy="0 0 -${M_PI/2}" />
-  <xacro:wheel name="wheel_RR" pose_xyz="-0.09 0.075 0.015" pose_rpy="0 0 ${M_PI/2}" />
-  <xacro:wheel name="wheel_RL" pose_xyz="-0.09 -0.075 0.015" pose_rpy="0 0 -${M_PI/2}" />
+  <xacro:front_steer_shaft base="base_link" pose_xyz="0.095 0 0.016" />
+  <xacro:rear_wheel_shaft base="base_link" pose_xyz="-0.09 0 0.016" tread="0.146" radius="0.032" />
+
+  <xacro:front_wheel name="wheel_fr" base="base_link" pose_xyz="0.095 -0.073 0.016" right_left="right" />
+  <xacro:front_wheel name="wheel_fl" base="base_link" pose_xyz="0.095 0.073 0.016" right_left="left" />
+  <xacro:rear_wheel name="wheel_rr" base="base_link" pose_xyz="-0.09 -0.073 0.016" right_left="right" />
+  <xacro:rear_wheel name="wheel_rl" base="base_link" pose_xyz="-0.09 0.073 0.016" right_left="left" />
 
   <!-- Gazebo plugins -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS>
+      <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
     </plugin>
   </gazebo>
 

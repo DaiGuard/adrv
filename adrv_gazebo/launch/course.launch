@@ -2,8 +2,10 @@
 
 <launch>
 
+  <arg name="world" default="course_small" />
+  
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find adrv_gazebo)/worlds/course.world"/>
+    <arg name="world_name" value="$(find adrv_gazebo)/worlds/$(arg world).world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>

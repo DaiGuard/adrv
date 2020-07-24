@@ -4,9 +4,12 @@
 
   <!-- parameters -->
   <!-- <arg name="" default="" /> -->
+  <arg name="world" default="course" />
 
   <!-- gazebo run start & spawn course world -->
-  <include file="$(find adrv_gazebo)/launch/course.launch" />
+  <include file="$(find adrv_gazebo)/launch/course.launch" >
+    <arg name="world" value="$(arg world)" />
+  </include>
 
   <!-- spawn robot description -->
   <include file="$(find adrv_gazebo)/launch/spawn_ardv.launch">
