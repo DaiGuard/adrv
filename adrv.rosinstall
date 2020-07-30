@@ -2,3 +2,7 @@
     local-name: steer_drive_ros
     uri: https://github.com/DaiGuard/steer_drive_ros.git
     version: melodic-devel
+- git:
+    local-name: ydlidar_ros
+    uri: https://github.com/YDLIDAR/ydlidar_ros.git
+    version: X4    
