@@ -5,4 +5,8 @@
 - git:
     local-name: ydlidar_ros
     uri: https://github.com/YDLIDAR/ydlidar_ros.git
-    version: X4    
+    version: master
+- git:
+    local-name: realsense-ros
+    uri: https://github.com/IntelRealSense/realsense-ros.git
+    version: 2.2.14

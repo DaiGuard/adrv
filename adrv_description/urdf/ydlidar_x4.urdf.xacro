@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<robot name="ydlidar_x4" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="ydlidar_x4" params="name base pose_xyz pose_rpy">
+
+    <link name="${name}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://adrv_description/meshes/x4_link.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://adrv_description/meshes/x4_link.dae" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="-0.00029774 0.0066667 0.00013047" rpy="0 0 0" />
+        <mass value="0.15717" />
+        <inertia ixx="6.7885E-05" ixy="-1.3987E-07" ixz="-8.1554E-07"
+                                  iyy="0.00013173" iyz="-9.0932E-08"
+                                                   izz="7.1972E-05" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed" >
+      <parent link="${base}" />
+      <child link="${name}_link" />
+      <origin xyz="${pose_xyz}" rpy="${pose_rpy}" />
+      <axis xyz="0 1 0" />
+    </joint>
+
+    <gazebo reference="${name}_link">
+      <sensor type="ray" name="${name}">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <sample>360</sample>
+              <resolution>0.25</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>${M_PI*2}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
+          <topicName>scan</topicName>
+          <frameName>${name}_link</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

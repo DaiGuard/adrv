@@ -44,6 +44,19 @@
   <xacro:rear_wheel name="wheel_rr" base="base_link" pose_xyz="-0.09 -0.073 0.016" right_left="right" />
   <xacro:rear_wheel name="wheel_rl" base="base_link" pose_xyz="-0.09 0.073 0.016" right_left="left" />
 
+  <!-- YDLIDAR X4 -->
+  <xacro:include filename="$(find adrv_description)/urdf/ydlidar_x4.urdf.xacro" />
+
+  <xacro:ydlidar_x4 name="ydlidar" base="base_link" pose_xyz="0.052 0 0.066" pose_rpy="0 0 ${-M_PI/2-6/180*M_PI}" />
+
+  <!-- RealSense D435 -->
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+  <xacro:sensor_d435 parent="base_link" use_nominal_extrinsics="true">
+    <origin xyz="0.127 0 0.042" rpy="0 ${5/180*M_PI} 0"/>
+  </xacro:sensor_d435>
+
+
   <!-- Gazebo plugins -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
