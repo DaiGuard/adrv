@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="adrv_drvier" pkg="adrv_driver" type="adrv_driver.py" output="screen">
+    <param name="steer_ch" value="0" />
+    <param name="drive_ch" value="1" />
+    <param name="steer_max" value="0.5" />
+    <param name="steer_min" value="-0.5" />
+    <param name="steer_offset" value="-0.1" />
+    <param name="drive_max" value="1.0" />
+    <param name="drive_min" value="-1.0" />
+    <param name="drive_offset" value="0.0" />
+  </node>
+
+</launch>
