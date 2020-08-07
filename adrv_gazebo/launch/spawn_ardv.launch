@@ -5,10 +5,10 @@
   <!--  -->
   <arg name="robot_name" default="adrv" />
   <arg name="robot_namespace" default="/" />
-  <arg name="x" default="2.85" />
-  <arg name="y" default="-0.3" />
-  <arg name="z" default="0.03" />
-  <arg name="yaw" default="-1.57079" />
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="0.0" />
+  <arg name="yaw" default="0" />
 
   <!--  -->
   <include file="$(find adrv_description)/launch/adrv_description.launch">

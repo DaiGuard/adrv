@@ -13,6 +13,12 @@
 
   <!-- spawn robot description -->
   <include file="$(find adrv_gazebo)/launch/spawn_ardv.launch">
+    <arg name="robot_name" default="adrv" />
+    <arg name="robot_namespace" default="/" />
+    <arg name="x" default="0" />
+    <arg name="y" default="0" />
+    <arg name="z" default="0.03" />
+    <arg name="yaw" default="0" />
   </include>
 
 </launch>

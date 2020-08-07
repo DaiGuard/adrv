@@ -2,7 +2,7 @@
 
 <launch>
 
-  <arg name="world" default="course_small" />
+  <arg name="world" default="course" />
   
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find adrv_gazebo)/worlds/$(arg world).world"/>

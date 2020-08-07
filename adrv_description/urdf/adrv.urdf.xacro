@@ -7,7 +7,13 @@
   
   <!-- ### arguments ### -->
   <xacro:arg name="robot_namespace" default="/" />
-  
+
+  <!-- ### include ### -->
+  <xacro:include filename="$(find adrv_description)/urdf/steering.urdf.xacro" />
+  <xacro:include filename="$(find adrv_description)/urdf/ydlidar_x4.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <xacro:include filename="$(find adrv_description)/urdf/sensor.urdf.xacro" />
+
   <!-- ###  links  ### -->
 
   <!-- base_link -->
@@ -33,9 +39,7 @@
     </inertial>
   </link>
 
-  <!-- wheel_link -->
-  <xacro:include filename="$(find adrv_description)/urdf/steering.urdf.xacro" />
-
+  <!-- wheel_link -->  
   <xacro:front_steer_shaft base="base_link" pose_xyz="0.095 0 0.016" />
   <xacro:rear_wheel_shaft base="base_link" pose_xyz="-0.09 0 0.016" tread="0.146" radius="0.032" />
 
@@ -44,18 +48,16 @@
   <xacro:rear_wheel name="wheel_rr" base="base_link" pose_xyz="-0.09 -0.073 0.016" right_left="right" />
   <xacro:rear_wheel name="wheel_rl" base="base_link" pose_xyz="-0.09 0.073 0.016" right_left="left" />
 
-  <!-- YDLIDAR X4 -->
-  <xacro:include filename="$(find adrv_description)/urdf/ydlidar_x4.urdf.xacro" />
-
+  <!-- YDLIDAR X4 -->  
   <xacro:ydlidar_x4 name="ydlidar" base="base_link" pose_xyz="0.052 0 0.066" pose_rpy="0 0 ${-M_PI/2-6/180*M_PI}" />
 
   <!-- RealSense D435 -->
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
-
   <xacro:sensor_d435 parent="base_link" use_nominal_extrinsics="true">
     <origin xyz="0.127 0 0.042" rpy="0 ${5/180*M_PI} 0"/>
   </xacro:sensor_d435>
 
+  <!-- Sensor -->
+  <xacro:imu name="imu" base="base_link" pose_xyz="0.082 0 0.046" pose_rpy="0 ${M_PI} ${-M_PI/2}" />  
 
   <!-- Gazebo plugins -->
   <gazebo>
