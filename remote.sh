@@ -39,6 +39,6 @@ echo "Remote: $1"
 echo "Host  : $2"
 
 echo "export ROS_IP=$1"
-echo "export ROS_MASTER_URL=http://$2:11311"
+echo "export ROS_MASTER_URI=http://$2:11311"
 export ROS_IP=$1
-export ROS_MASTER_URI=htpp://$2:11311
+export ROS_MASTER_URI=http://$2:11311

@@ -4,6 +4,8 @@ import rospy
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 
+import math
+
 # global variables
 vel_pub = None
 steer_max = 1.0
@@ -38,8 +40,12 @@ def joystickSubscribe(data: Joy):
 
   vel = Twist()
 
-  vel.linear.x = linear_set(data.axes[1], drive_min, drive_max)
-  vel.angular.z = linear_set(data.axes[2], steer_min, steer_max)
+  vel.linear.x = linear_set(
+                    math.pow(data.axes[1], 5),
+                    drive_min, drive_max)
+  vel.angular.z = linear_set(
+                    math.pow(data.axes[2], 1),
+                    steer_min, steer_max)
 
   if vel_pub is not None:
     vel_pub.publish(vel)
