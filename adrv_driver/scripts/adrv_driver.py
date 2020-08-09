@@ -20,23 +20,24 @@ def recvTargetVel(data):
   steer_vel = data.angular.z
 
 
-def linear_set(data, lower, upper, offset):
+def linear_set(data, lower, upper, offset, dead):
 
   val = 0.0
 
-  data = data + offset
-
   if data > 0.0:    
-    val = abs(data / (upper + offset))
+    val = abs(data / upper) + offset
 
     if val > 1.0:
       val = 1.0
 
   else:
-    val = - abs(data / (lower+offset))
+    val = - abs(data / lower) + offset
 
     if val < -1.0:
       val = -1.0
+
+  if abs(val) < dead and abs(val) > 0.0:
+    val = val / abs(val) * dead
 
   return val
 
@@ -55,9 +56,11 @@ def execute():
   steer_max = math.pi / 2.0
   steer_min = - math.pi / 2.0
   steer_offset = 0.0
+  steer_dead = 0.0
   drive_max = 1.0
   drive_min = -1.0
   drive_offset = 0.0
+  drive_dead = 0.0
 
   try:
     steer_ch = rospy.get_param('~steer_ch')
@@ -86,18 +89,20 @@ def execute():
       steer_max = rospy.get_param('~steer_max')
       steer_min = rospy.get_param('~steer_min')
       steer_offset = rospy.get_param('~steer_offset')
+      steer_dead = rospy.get_param('~steer_dead')
       drive_max = rospy.get_param('~drive_max')
       drive_min = rospy.get_param('~drive_min')
       drive_offset = rospy.get_param('~drive_offset')
+      drive_dead = rospy.get_param('~drive_dead')
 
     except rospy.ROSException:
       pass
     
-    ret, message = com.SetPWM(steer_ch, linear_set(steer_vel, steer_min, steer_max, steer_offset))
+    ret, message = com.SetPWM(steer_ch, linear_set(steer_vel, steer_min, steer_max, steer_offset, steer_dead))
     if not ret:
       rospy.logwarn(message)
 
-    ret, message = com.SetPWM(drive_ch, linear_set(drive_vel, drive_min, drive_max, drive_offset))
+    ret, message = com.SetPWM(drive_ch, linear_set(drive_vel, drive_min, drive_max, drive_offset, drive_dead))
     if not ret:
       rospy.logwarn(message)
 
