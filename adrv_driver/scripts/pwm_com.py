@@ -94,4 +94,6 @@ class PWMCom:
 
     self._pwm.set_pwm(ch, 0, pulse)
 
+    print "[" + str(ch) +"]: " + str(pulse)
+    
     return True, ""
