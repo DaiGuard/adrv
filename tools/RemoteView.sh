@@ -1,10 +1,10 @@
 #!/bin/bash
-echo "---- remote control ----";
+echo "---- remote view ----";
 
 cd ~/Workspaces/ros/rc_ws;
 source devel/setup.bash;
 source remote.sh
-roslaunch adrv_remote adrv_remote.launch
+roslaunch adrv_rviz adrv_rviz.launch
 
 echo "";
 read -p "Please place any key...";
