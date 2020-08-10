@@ -82,6 +82,6 @@ if __name__ == "__main__":
   try:
     excecute()
   except rospy.ROSInterruptException as ex:
-    rospy.logerr(ex)
+    rospy.logerr(ex.msg)
   except Exception as ex:
-    rospy.logerr(ex)
+    rospy.logerr(ex.msg)
