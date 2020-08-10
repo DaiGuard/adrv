@@ -13,6 +13,7 @@ steer_min =-1.0
 drive_max = 1.0
 drive_min =-1.0
 
+ave_rate = 0.1
 
 def linear_set(data, lower, upper):
 
@@ -40,9 +41,13 @@ def joystickSubscribe(data: Joy):
 
   vel = Twist()
 
+  #vel.linear.x = linear_set(
+  #                  math.pow(data.axes[1], 5),
+  #                  drive_min, drive_max)
   vel.linear.x = linear_set(
-                    math.pow(data.axes[1], 5),
-                    drive_min, drive_max)
+                     data.axes[1],
+                     drive_min, drive_max) * 0.1
+
   vel.angular.z = linear_set(
                     math.pow(data.axes[2], 1),
                     steer_min, steer_max)
