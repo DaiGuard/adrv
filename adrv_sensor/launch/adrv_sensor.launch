@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="adrv_imu" pkg="adrv_sensor" type="adrv_imu.py" output="screen" />
+
+</launch>

@@ -90,10 +90,10 @@ class PWMCom:
 
     [bmin, bmax] = self._ch_params[ch]
 
-    pulse = int((1.0 + ratio) * (bmax + bmin) / 2.0)
+    pulse = int((bmax + bmin) / 2.0 + (bmax - bmin) / 2.0 * ratio)
 
     self._pwm.set_pwm(ch, 0, pulse)
 
-    #print "[" + str(ch) +"]: " + str(pulse)
+    print "[" + str(ch) +"]: " + str(pulse) + " ( " + str(bmin) + " / " + str(bmax) + " )"
     
     return True, ""
