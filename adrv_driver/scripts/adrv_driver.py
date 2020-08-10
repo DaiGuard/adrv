@@ -23,15 +23,16 @@ def recvTargetVel(data):
 def linear_set(data, lower, upper, offset, dead):
 
   val = 0.0
+  data = data + offset
 
   if data > 0.0:    
-    val = abs(data / upper) + offset
+    val = abs(data / upper)
 
     if val > 1.0:
       val = 1.0
 
   else:
-    val = - abs(data / lower) + offset
+    val = - abs(data / lower)
 
     if val < -1.0:
       val = -1.0
@@ -72,8 +73,8 @@ def execute():
   rospy.Subscriber('cmd_vel', Twist, recvTargetVel)
 
   # PWM Communicator initialize
-  com = PWMCom(1, 50.0)
-  ret, message = com.InitPWM(steer_ch, 0.001, 0.002)
+  com = PWMCom(1, 100.0)
+  ret, message = com.InitPWM(steer_ch, 0.0008, 0.0022)
   if not ret:
     raise Exception(message)
 

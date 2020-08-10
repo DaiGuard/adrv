@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <include file="$(find adrv_driver)/launch/adrv_driver.launch" />
+  <include file="$(find ydlidar_ros)/launch/X4.launch" />
+  <include file="$(find adrv_sensor)/launch/adrv_sensor.launch" />
+
+</launch>
