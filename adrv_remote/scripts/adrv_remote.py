@@ -41,15 +41,11 @@ def joystickSubscribe(data: Joy):
 
   vel = Twist()
 
-  #vel.linear.x = linear_set(
-  #                  math.pow(data.axes[1], 5),
-  #                  drive_min, drive_max)
   vel.linear.x = linear_set(
-                     data.axes[1],
-                     drive_min, drive_max) * 0.1
-
+                   math.pow(data.axes[1], 3),
+                   drive_min, drive_max)
   vel.angular.z = linear_set(
-                    math.pow(data.axes[2], 1),
+                    math.pow(data.axes[2], 3),
                     steer_min, steer_max)
 
   if vel_pub is not None:
