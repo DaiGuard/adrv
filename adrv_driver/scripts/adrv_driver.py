@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -114,7 +114,7 @@ if __name__ == '__main__':
   try:
     execute()
   except rospy.ROSInterruptException as ex:
-    rospy.logerr(ex.message)
+    rospy.logerr(ex)
   except Exception as ex:
-    rospy.logerr(ex.message)
+    rospy.logerr(ex)
     

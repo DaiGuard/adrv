@@ -2,8 +2,12 @@
 
 <launch>
 
+  <include file="$(find adrv_description)/launch/adrv_description.launch" />
   <include file="$(find adrv_driver)/launch/adrv_driver.launch" />
-  <include file="$(find ydlidar_ros)/launch/X4.launch" />
+  <include file="$(find ydlidar_ros)/launch/X4.launch" >
+    <arg name="frame_id" value="ydlidar_link" />
+  </include>
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
   <include file="$(find adrv_sensor)/launch/adrv_sensor.launch" />
 
 </launch>

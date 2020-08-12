@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 import Adafruit_PCA9685
@@ -32,7 +32,7 @@ class PWMCom:
   def __del__(self):
     pass
   
-  def InitPWM(self, ch, min, max):
+  def InitPWM(self, ch: int, min: float, max: float):
     """
     Initialize PWM Output
 
@@ -53,8 +53,8 @@ class PWMCom:
         result message  
     """
 
-    bmin = int(min / ((1.0 /self._hz) / 4096))
-    bmax = int(max / ((1.0 /self._hz) / 4096))
+    bmin = int(min / ((1.0 /self._hz) / 4096.0))
+    bmax = int(max / ((1.0 /self._hz) / 4096.0))
 
     #----------------------#
     # value error check
@@ -68,11 +68,11 @@ class PWMCom:
       return False, 'Out of range channel value'    
 
     self._ch_params[ch] = [bmin, bmax]
-    self._pwm.set_pwm(ch, 0, (bmin+bmax)/2)
+    self._pwm.set_pwm(ch, 0, int((bmin+bmax)/2))
 
-    print '-----------------'
-    print 'CH: %d Initialize' % ch
-    print '  min: %d, max: %d' % (bmin, bmax)
+    print('-----------------')
+    print('CH: {} Initialize'.format(ch))
+    print('  min: {0}, max: {1}'.format(bmin, bmax))
 
     return True, ""
 
@@ -94,6 +94,6 @@ class PWMCom:
 
     self._pwm.set_pwm(ch, 0, pulse)
 
-    print "[" + str(ch) +"]: " + str(pulse) + " ( " + str(bmin) + " / " + str(bmax) + " )"
+    # print('[{0}]: {1} ( {2} / {3} )'.format(ch, pulse, bmin, bmax))
     
     return True, ""
