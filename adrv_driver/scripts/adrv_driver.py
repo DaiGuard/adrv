@@ -49,7 +49,7 @@ def execute():
   rospy.init_node('adrv_driver', anonymous=True)
 
   # Frame rate
-  loop = rospy.Rate(10)
+  loop = rospy.Rate(60)
 
   # Paramaters
   steer_ch = 0
@@ -115,6 +115,8 @@ if __name__ == '__main__':
     execute()
   except rospy.ROSInterruptException as ex:
     rospy.logerr(ex)
+  except KeyboardInterrupt:
+    rospy.logwarn("keyboard interrupt")
   except Exception as ex:
     rospy.logerr(ex)
     
