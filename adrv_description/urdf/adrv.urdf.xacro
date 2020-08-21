@@ -13,6 +13,7 @@
   <xacro:include filename="$(find adrv_description)/urdf/ydlidar_x4.urdf.xacro" />
   <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
   <xacro:include filename="$(find adrv_description)/urdf/sensor.urdf.xacro" />
+  <xacro:include filename="$(find adrv_description)/urdf/inertia.urdf.xacro" />
 
   <!-- ###  links  ### -->
 
@@ -30,13 +31,9 @@
         <mesh filename="package://adrv_description/meshes/base_link.dae" />
       </geometry>
     </collision>
-    <inertial>
-      <origin xyz="0 0 0" />
-      <mass value="1.0" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0"
-                         iyy="1.0" iyz="0.0"
-                                   izz="1.0" />
-    </inertial>
+
+    <xacro:box_inertia mass="10.0" w="0.146" h="0.185" d="0.05" />
+
   </link>
 
   <!-- wheel_link -->  
@@ -57,7 +54,7 @@
   </xacro:sensor_d435>
 
   <!-- Sensor -->
-  <xacro:imu name="imu" base="base_link" pose_xyz="0.082 0 0.046" pose_rpy="0 ${M_PI} ${-M_PI/2}" />  
+  <xacro:imu name="imu" base="base_link" pose_xyz="0.082 0 0.046" pose_rpy="0 0 0" />  
 
   <!-- Gazebo plugins -->
   <gazebo>
@@ -66,5 +63,6 @@
       <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
     </plugin>
   </gazebo>
+
 
 </robot>

@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <robot name="wheel" xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <xacro:include filename="$(find adrv_description)/urdf/inertia.urdf.xacro" />
+
   <xacro:macro name="wheel" params="name right_left">
   
     <link name="${name}_link">
@@ -35,21 +37,30 @@
         </collision>
       </xacro:if>
 
-      <inertial>
+      <xacro:cylinder_inertia mass="0.3" r="0.016" h="0.03" />
+      <!-- <inertial>
         <origin xyz="0 0 0" />
         <mass value="1.0" />
         <inertia ixx="1.0" ixy="0.0" ixz="0.0"
                            iyy="1.0" iyz="0.0"
                                      izz="1.0" />
-      </inertial>
+      </inertial> -->
     </link>
 
     <gazebo reference="${name}_link">
-      <mu1 value="1.0" />
+			<mu1 value="1.0"/>
+			<mu2 value="1.0"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+      <!-- <mu1 value="1.0" />
       <mu2 value="1.0" />
       <kp  value="100000000.0" />
-      <kd  value="1.0" />
+      <kd  value="100000000.0" />
       <fdir1 value="1 0 0" />
+      <maxVel value="1.0" />
+      <minDepth value="0.005" />
+      <dampingFactor value="0.99" /> -->
     </gazebo>
 
   </xacro:macro>

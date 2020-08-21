@@ -2,36 +2,46 @@
 
 <launch>
 
-  <include file="$(find adrv_description)/launch/adrv_description.launch" />
+  <arg name="use_sim" default="false" />
 
-  <include file="$(find adrv_driver)/launch/adrv_driver.launch" />
+  <group unless="$(arg use_sim)">
+    <!-- ロボット記述とロボットTFを出力 -->
+    <include file="$(find adrv_description)/launch/adrv_description.launch" />
 
-  <include file="$(find ydlidar_ros)/launch/X4.launch" >
-    <arg name="frame_id" value="ydlidar_link" />
-  </include>
+    <!-- Lidarを起動する -->
+    <include file="$(find ydlidar_ros)/launch/X4.launch" >
+      <arg name="frame_id" value="ydlidar_link" />
+    </include>
 
-  <include file="$(find realsense2_camera)/launch/rs_camera.launch" >
-    <arg name="enable_fisheye"      default="false"/>
+    <!-- カメラを起動する -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch" >
+      <arg name="enable_fisheye" value="false"/>
 
-    <arg name="depth_width"         default="640"/>
-    <arg name="depth_height"        default="360"/>
-    <arg name="enable_depth"        default="true"/>
+      <arg name="depth_width"    value="640"/>
+      <arg name="depth_height"   value="360"/>
+      <arg name="enable_depth"   value="true"/>
 
-    <arg name="enable_infra1"       default="false"/>
-    <arg name="enable_infra2"       default="false"/>
+      <arg name="enable_infra1"  value="false"/>
+      <arg name="enable_infra2"  value="false"/>
 
-    <arg name="color_width"         default="640"/>
-    <arg name="color_height"        default="360"/>
-    <arg name="enable_color"        default="true"/>
+      <arg name="color_width"    value="640"/>
+      <arg name="color_height"   value="360"/>
+      <arg name="enable_color"   value="true"/>
 
-    <arg name="depth_fps"           default="60"/>
-    <arg name="color_fps"           default="60"/>
-    <arg name="gyro_fps"            default="100"/>
-    <arg name="accel_fps"           default="100"/>
-    <arg name="enable_gyro"         default="true"/>
-    <arg name="enable_accel"        default="true"/>
-  </include>
+      <arg name="depth_fps"      value="60"/>
+      <arg name="color_fps"      value="60"/>
+      <arg name="gyro_fps"       value="100"/>
+      <arg name="accel_fps"      value="100"/>
+      <arg name="enable_gyro"    value="true"/>
+      <arg name="enable_accel"   value="true"/>
+    </include>
 
-  <include file="$(find adrv_sensor)/launch/adrv_sensor.launch" />
+    <!-- IMUを起動する -->
+    <include file="$(find adrv_sensor)/launch/adrv_sensor.launch" />
+
+  </group>
+
+  <!-- ロボットの自己位置推定を起動する -->
+  <!-- <include file="$(find adrv_navigation)/launch/adrv_amcl.launch" /> -->
 
 </launch>

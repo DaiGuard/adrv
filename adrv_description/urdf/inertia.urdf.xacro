@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot name="wheel" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="box_inertia" params="mass w h d">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="${mass}" />
+        <inertia ixx="${(h/2*h/2+d/2*d/2)*mass/3}" ixy="0.0" ixz="0.0"
+                           iyy="1.0" iyz="0.0"
+                                     izz="1.0" />
+      </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertia" params="mass r h">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="${mass}" />
+        <inertia ixx="${mass*r*r/2}" ixy="0.0" ixz="0.0"
+                           iyy="${(r*r/4+h*h/12)*mass}" iyz="0.0"
+                                     izz="${(r*r/4+h*h/12)*mass}" />
+      </inertial>
+  </xacro:macro>
+
+</robot>

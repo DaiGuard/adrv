@@ -36,13 +36,14 @@
 
     <gazebo reference="${name}_link">
       <sensor type="ray" name="${name}">
+        <!-- <turnGravityOff>true</turnGravityOff> -->
         <pose>0 0 0 0 0 0</pose>
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <update_rate>12</update_rate>
         <ray>
           <scan>
             <horizontal>
-              <sample>720</sample>
+              <samples>720</samples>
               <resolution>1</resolution>
               <min_angle>0</min_angle>
               <max_angle>${M_PI*2}</max_angle>
@@ -62,6 +63,7 @@
         <plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
           <topicName>scan</topicName>
           <frameName>${name}_link</frameName>
+          <robotNamespace>/</robotNamespace>
         </plugin>
       </sensor>
     </gazebo>

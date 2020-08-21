@@ -80,7 +80,7 @@
       <parent link="${base}" />
       <child link="${name}_steer_link" />
       <origin xyz="${pose_xyz}" rpy="0 0 0" />
-      <axis xyz="0 0 -1" /> 
+      <axis xyz="0 0 1" /> 
       <limit lower="${-M_PI/3}" upper="${M_PI/3}" effort="7.0" velocity="2.16"/>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
