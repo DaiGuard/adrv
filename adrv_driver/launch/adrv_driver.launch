@@ -10,10 +10,10 @@
       <param name="drive_ch" value="1" />
       <param name="steer_max" value="0.5" />
       <param name="steer_min" value="-0.5" />
-      <param name="steer_offset" value="-0.2" />
+      <param name="steer_offset" value="0.1" />
       <param name="steer_dead" value="0.0" />
-      <param name="drive_max" value="1.0" />
-      <param name="drive_min" value="-1.0" />
+      <param name="drive_max" value="2.0" />
+      <param name="drive_min" value="-2.0" />
       <param name="drive_offset" value="0.0" />
       <param name="drive_dead" value="0.1" />
       <param name="use_sim" value="$(arg use_sim)" />
@@ -28,13 +28,13 @@
       <param name="drive_ch" value="1" />
       <param name="steer_max" value="0.5" />
       <param name="steer_min" value="-0.5" />
-      <param name="steer_offset" value="-0.2" />
+      <param name="steer_offset" value="0.1" />
       <param name="steer_dead" value="0.0" />
-      <param name="drive_max" value="1.0" />
-      <param name="drive_min" value="-1.0" />
+      <param name="drive_max" value="2.0" />
+      <param name="drive_min" value="-2.0" />
       <param name="drive_offset" value="0.0" />
       <param name="drive_dead" value="0.1" />
-      <param name="use_sim" value="$(arg use_sim)" />
+      <param name="use_sim" value="false" />
     </node>
   </group>
 

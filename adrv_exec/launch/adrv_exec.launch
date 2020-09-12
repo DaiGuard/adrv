@@ -44,4 +44,9 @@
   <!-- ロボットの自己位置推定を起動する -->
   <include file="$(find adrv_navigation)/launch/adrv_navigation.launch" />
 
+  <!-- モータドライバを起動する -->
+  <include file="$(find adrv_driver)/launch/adrv_driver.launch">
+    <arg name="use_sim" value="$(arg use_sim)" />
+  </include>
+
 </launch>
