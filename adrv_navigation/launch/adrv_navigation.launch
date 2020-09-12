@@ -8,9 +8,9 @@
     <param name="frame_id" value="odom" />
   </node>
 
-  <node name="adrv_amcl" pkg="amcl" type="amcl" output="screen">
-    <rosparam command="load" file="$(find adrv_navigation)/config/amcl.yaml" />
-  </node>
+  <include file="$(find adrv_navigation)/launch/amcl.launch" />
+
+  <include file="$(find adrv_navigation)/launch/move_base.launch" />
 
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find adrv_navigation)/config/localization.yaml" />

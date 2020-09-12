@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="adrv_amcl" pkg="amcl" type="amcl" output="screen">
+    <rosparam command="load" file="$(find adrv_navigation)/config/amcl.yaml" />
+  </node>
+
+</launch>

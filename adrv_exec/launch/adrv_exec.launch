@@ -42,6 +42,6 @@
   </group>
 
   <!-- ロボットの自己位置推定を起動する -->
-  <!-- <include file="$(find adrv_navigation)/launch/adrv_amcl.launch" /> -->
+  <include file="$(find adrv_navigation)/launch/adrv_navigation.launch" />
 
 </launch>
