@@ -47,4 +47,9 @@
     <arg name="map_less" value="$(arg map_less)" />
   </include>
 
+  <!-- モータドライバを起動する -->
+  <include file="$(find adrv_driver)/launch/adrv_driver.launch">
+    <arg name="use_sim" value="$(arg use_sim)" />
+  </include>
+
 </launch>

@@ -59,7 +59,7 @@ def execute():
   rospy.init_node('adrv_driver', anonymous=True)  
 
   # Frame rate
-  loop = rospy.Rate(60)
+  rate = rospy.Rate(60)
 
   # Paramaters
   steer_ch = 0
@@ -99,7 +99,7 @@ def execute():
       raise Exception(message)
 
   # Loop
-  while not rospy.is_shutdown():
+  while not rospy.is_shutdown():    
 
     # Runtime parameter update
     try:
@@ -112,7 +112,7 @@ def execute():
       drive_offset = rospy.get_param('~drive_offset')
       drive_dead = rospy.get_param('~drive_dead')
 
-    except rospy.ROSException:
+    except rospy.ROSException:      
       pass
     
     if not use_sim:
@@ -132,7 +132,8 @@ def execute():
 
     odom_pub.publish(odom)
 
-    loop.sleep()
+    # rate.sleep()
+
 
 
 if __name__ == '__main__':
