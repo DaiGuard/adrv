@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="adrv_gmapping" pkg="gmapping" type="slam_gmapping" output="screen">
+    <rosparam command="load" file="$(find adrv_navigation)/config/gmapping.yaml" />
+  </node>
+
+</launch>

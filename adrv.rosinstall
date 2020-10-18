@@ -14,3 +14,7 @@
     local-name: realsense-ros
     uri: https://github.com/IntelRealSense/realsense-ros.git
     version: 2.2.14
+- git:
+    local-name: scan_tools
+    uri: https://github.com/ccny-ros-pkg/scan_tools
+    version: indigo

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+  
+  <node name="goal_publisher" pkg="adrv_navigation" type="goal_publisher.py" output="screen" >
+    <rosparam command="load" file="$(find adrv_navigation)/config/goal_list.yaml" />
+  </node>
+
+</launch>

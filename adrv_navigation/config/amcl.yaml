@@ -5,19 +5,21 @@ global_frame_id: map
 tf_broadcast: true
 
 odom_model_type: diff
-odom_alpha5: 0.1
 gui_publish_rate: 10.0
-laser_max_beams: 60
-laser_max_range: 3.0
-min_particles: 100
-max_particles: 5000
-kld_err: 0.05
-kld_z: 0.99
-odom_alpha1: 0.2
-odom_alpha2: 0.2
 
-odom_alpha3: 0.2
-odom_alpha4: 0.2
+min_particles: 500
+max_particles: 5000
+
+kld_err: 0.01
+kld_z: 0.99
+
+odom_alpha1: 0.8
+odom_alpha2: 0.8
+odom_alpha3: 0.8
+odom_alpha4: 0.6
+
+laser_max_beams: 60
+laser_max_range: 12.0
 laser_z_hit: 0.5
 laser_z_short: 0.05
 laser_z_max: 0.05
@@ -27,11 +29,14 @@ laser_lambda_short: 0.1
 laser_model_type: likelihood_field
 
 laser_likelihood_max_dist: 2.0
-update_min_d: 0.01
-update_min_a: 0.1
+update_min_d: 0.2
+update_min_a: 0.5
 odom_frame_id: odom
 resample_interval: 1
 
-transform_tolerance: 1.0
-recovery_alpha_slow: 0.0
-recovery_alpha_fast: 0.0
+transform_tolerance: 0.1
+recovery_alpha_slow: 0.001
+recovery_alpha_fast: 0.1
+
+use_map_topic: true
+# first_map_only: true

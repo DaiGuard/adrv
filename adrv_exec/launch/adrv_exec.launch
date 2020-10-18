@@ -3,6 +3,7 @@
 <launch>
 
   <arg name="use_sim" default="false" />
+  <arg name="map_less" default="false" />
 
   <group unless="$(arg use_sim)">
     <!-- ロボット記述とロボットTFを出力 -->
@@ -42,6 +43,8 @@
   </group>
 
   <!-- ロボットの自己位置推定を起動する -->
-  <include file="$(find adrv_navigation)/launch/adrv_navigation.launch" />
+  <include file="$(find adrv_navigation)/launch/adrv_navigation.launch" >
+    <arg name="map_less" value="$(arg map_less)" />
+  </include>
 
 </launch>
