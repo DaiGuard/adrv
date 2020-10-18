@@ -6,10 +6,12 @@ import rosparam
 import rospkg
 import rosnode
 import tf
+import math
 
 from std_srvs.srv import Empty, EmptyRequest, EmptyResponse
-from geometry_msgs.msg import PoseArray, Pose
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from geometry_msgs.msg import PoseArray, Pose, PoseStamped
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseFeedback, MoveBaseResult
+from actionlib_msgs.msg import GoalStatus
 import actionlib
 
 
@@ -40,6 +42,20 @@ def teach_goal(req):
   return EmptyResponse()
 
 
+# # 
+# feedback_pose = Pose()
+# def feedback_cb(feedback):
+#   global feedback_pose
+
+#   feedback_pose = feedback.base_position.pose
+
+# #
+# status_id = 0
+# def done_cb(state, result):
+#   global status_id
+#   status_id = state.status
+
+
 # ノードメイン関数
 def goal_publisher():
 
@@ -52,9 +68,11 @@ def goal_publisher():
   # 登録位置データを確認用に配信する
   goals_pub= rospy.Publisher('~goals', PoseArray, queue_size=10)
 
-  # 
-  client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-  client.wait_for_server()
+  target_pub = rospy.Publisher('move_base_simple/goal', PoseStamped,queue_size=10)  
+
+  # #   
+  # client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+  # client.wait_for_server()  
 
   # ループ周波数の定義
   loop = rospy.Rate(1.0)
@@ -78,22 +96,72 @@ def goal_publisher():
     pose_array.poses.append(pose)
 
   goals_pub.publish(pose_array)
+  
+  # global feedback_pose
+  # global status_id
+
+  # TFデータを購読するクラス
+  listener = tf.TransformListener()
 
   for goal in goals:
-    act_goal = MoveBaseGoal()
-    act_goal.target_pose.header.frame_id = 'map'
-    act_goal.target_pose.header.stamp = rospy.Time.now()
-    act_goal.target_pose.pose.position.x = goal[0]
-    act_goal.target_pose.pose.position.y = goal[1]
-    act_goal.target_pose.pose.position.z = goal[2]
-    act_goal.target_pose.pose.orientation.x = goal[3]
-    act_goal.target_pose.pose.orientation.y = goal[4]
-    act_goal.target_pose.pose.orientation.z = goal[5]
-    act_goal.target_pose.pose.orientation.w = goal[6]
+    # act_goal = MoveBaseGoal()
+    # act_goal.target_pose.header.frame_id = 'map'
+    # # act_goal.target_pose.header.stamp = rospy.Time.now()
+    # act_goal.target_pose.pose.position.x = goal[0]
+    # act_goal.target_pose.pose.position.y = goal[1]
+    # act_goal.target_pose.pose.position.z = goal[2]
+    # act_goal.target_pose.pose.orientation.x = goal[3]
+    # act_goal.target_pose.pose.orientation.y = goal[4]
+    # act_goal.target_pose.pose.orientation.z = goal[5]
+    # act_goal.target_pose.pose.orientation.w = goal[6]
+        
+    # client.send_goal(act_goal, done_cb=done_cb, feedback_cb=feedback_cb)
     
-    client.send_goal(act_goal)
-    client.wait_for_result()
-    print("REACH")
+    # while not rospy.is_shutdown():
+    #   dx = feedback_pose.position.x - goal[0]
+    #   dy = feedback_pose.position.y - goal[1]      
+
+    #   d = math.sqrt(dx * dx + dy * dy)
+
+    #   print(dx, dy, d, status_id)
+
+    #   if(d < 0.4):
+    #     print("REACH")
+    #     break
+
+    #   loop.sleep()
+
+    simple_goal = PoseStamped()
+    simple_goal.header.frame_id = 'map'
+    simple_goal.pose.position.x = goal[0]
+    simple_goal.pose.position.y = goal[1]
+    simple_goal.pose.position.z = goal[2]
+    simple_goal.pose.orientation.x = goal[3]
+    simple_goal.pose.orientation.y = goal[4]
+    simple_goal.pose.orientation.z = goal[5]
+    simple_goal.pose.orientation.w = goal[6]    
+
+    target_pub.publish(simple_goal)      
+
+    while not rospy.is_shutdown():
+
+      try:
+        (trans, rot) = listener.lookupTransform('map', 'base_link', rospy.Time(0))
+
+        dx = trans[0] - goal[0]
+        dy = trans[1] - goal[1]
+        d = math.sqrt( dx * dx + dy * dy )
+
+        print(dx, dy, d)
+
+        if d < 0.4:
+          break
+
+      except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+        pass
+
+      loop.sleep()
+    
 
   # # main loop
   # while not rospy.is_shutdown():
